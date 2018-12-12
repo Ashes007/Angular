@@ -1,0 +1,62 @@
+<div class="container">
+<form [formGroup] = "productForm" #prodForm="ngForm" (ngSubmit)="onSave(prodForm.value)">
+	<table class="table table-borderless table-sm">
+		<tr>
+			<td >Product Name</td>
+			<td>:</td>
+			<td colspan="2">
+				<input type="hidden" formControlName="id" [(ngModel)]="id">
+				<div class="float-left">
+					<input type="text" formControlName="productName" [(ngModel)]="productName">
+				</div>
+				<div *ngIf="productForm.controls['productName'].invalid && (productForm.controls['productName'].dirty || productForm.controls['productName'].touched)" class="alert alert-danger col-sm-4 float-left">
+			        <div *ngIf="productForm.controls['productName'].errors.required" >
+			          Product Name is required.
+			        </div>
+			    </div>
+			</td>
+		</tr>
+		<tr>
+			<td>Price</td>
+			<td>:</td>
+			<td colspan="2">
+				<div class="float-left">
+					<input type="text" formControlName="price" [(ngModel)]="price">
+				</div>
+				<div *ngIf="productForm.controls['price'].invalid && (productForm.controls['price'].dirty || productForm.controls['price'].touched)" class="alert alert-danger col-sm-4 float-left">
+			        <div *ngIf="productForm.controls['price'].errors.required" >
+			          Price is required.
+			        </div>
+			        <div *ngIf="productForm.controls['price'].errors.pattern" >
+			          Please enter numeric number.
+			        </div>
+			    </div>
+
+			</td>
+		</tr>
+		<tr>
+			<td>Description</td>
+			<td>:</td>
+			<td><input type="text" formControlName="description" [(ngModel)]="description"></td>
+		</tr>
+		<tr>
+			<td>Image</td>
+			<td>:</td>
+			<td>
+				<input type="file" (change)="fileChangeEvent($event)"/>
+				<img src ="./assets/uploads/{{ image }}" width="100">
+				<!-- <input type="file" ng2FileSelect [uploader]="uploader" name="photo" /> -->
+
+				
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td><button type="submit" [disabled]="productForm.invalid" class="btn btn-primary" >Save</button>
+				<button type="button" class="btn btn-info" routerLink="/product">Back</button>
+			</td>
+		</tr>
+	</table>
+</form>
+</div>

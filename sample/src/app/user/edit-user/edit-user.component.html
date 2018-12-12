@@ -1,0 +1,18 @@
+<form [formGroup]="profileForm" #userForm="ngForm" (ngSubmit)="onSave(userForm.value)">
+ 
+<div>
+  <label>
+    First Name:
+    <input formControlName="id" type="hidden" [(ngModel)]="id" /> 
+    <input type="text" formControlName="firstName" [(ngModel)]="firstName" >
+  </label>
+</div>
+<div>
+  <label>
+    Last Name:
+    <input type="text" formControlName="lastName" [(ngModel)]="lastName">
+  </label>
+</div>
+<button type="submit">Submit</button>
+</form>
+
