@@ -5,10 +5,7 @@ var mongo 		= require("mongoose");
 var fs 			= require('fs');
 var im 			= require('imagemagick');
 const multer 	= require('multer');
-const gm 		= require('gm');
 
-const width = 300;
-const height = 400;
 
 
 var db = mongo.connect("mongodb://localhost:27017/sampledb", function(err, response){   // "sampledb" Database name
