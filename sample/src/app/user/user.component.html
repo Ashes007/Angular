@@ -1,17 +1,21 @@
-
-<h2><a rel="noopener" routerLink="add">Add User</a></h2>
-<table>
-	<tr>
-		<td></td>
-		<td><b>First Name</b></td>
-		<td><b>Last Name</b></td>
-		<td></td>
-	</tr>
-	<tr *ngFor="let user of userData">
-		<td></td>
-		<td>{{ user.fname }}</td>
-		<td>{{ user.lname }}</td>
-		<td><a routerLink="edit/{{ user._id }}">Edit</a></td>
-		<td><a (click)="delete(user._id)" >Delete</a></td>
-	</tr>
-</table>
+<div class="container">
+	<h2><a rel="noopener" routerLink="add" class="btn btn-primary">Add User</a></h2>
+	<table class="table table-striped table-dark table-hover table-sm">
+		<tr>
+			<td></td>
+			<td><b>First Name</b></td>
+			<td><b>Last Name</b></td>
+			<td>Action</td>
+		</tr>
+		<tr *ngFor="let user of userData">
+			<td></td>
+			<td>{{ user.fname }}</td>
+			<td>{{ user.lname }}</td>
+			<td>
+				<a routerLink="edit/{{ user._id }}" class="btn btn-primary">Edit</a>
+				<a (click)="delete(user._id)" class="btn btn-danger">Delete</a>
+			</td>
+			
+		</tr>
+	</table>
+</div>

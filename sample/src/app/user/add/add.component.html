@@ -1,16 +1,19 @@
-<form [formGroup]="profileForm" #userForm="ngForm" (ngSubmit)="onSave(userForm.value)">
- 
-<div>
-  <label>
-    First Name:
-    <input type="text" formControlName="firstName">
-  </label>
+<div class="container">
+	<form [formGroup]="profileForm" #userForm="ngForm" (ngSubmit)="onSave(userForm.value)">
+	 
+	<div>
+	  <label>
+	    First Name:
+	    <input type="text" formControlName="firstName">
+	  </label>
+	</div>
+	<div>
+	  <label>
+	    Last Name:
+	    <input type="text" formControlName="lastName">
+	  </label>
+	</div>
+	<button type="submit" [disabled]="!profileForm.valid" class="btn btn-primary">Submit</button>
+	<button type="button" class="btn btn-info" routerLink="/user">Back</button>
+	</form>
 </div>
-<div>
-  <label>
-    Last Name:
-    <input type="text" formControlName="lastName">
-  </label>
-</div>
-<button type="submit" [disabled]="!profileForm.valid">Submit</button>
-</form>
