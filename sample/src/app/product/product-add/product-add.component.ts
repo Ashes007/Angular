@@ -25,6 +25,7 @@ export class ProductAddComponent implements OnInit {
   	productName: new FormControl('',[Validators.required]),
   	price: new FormControl('',[Validators.required, Validators.pattern('[0-9]*')]),
   	description: new FormControl(''),
+  	featured: new FormControl(''),
   	image: new FormControl('')
   });
 
@@ -43,6 +44,7 @@ export class ProductAddComponent implements OnInit {
 
   productimg.append("productName",product.productName); 
   productimg.append("price",product.price);
+  productimg.append("featured",product.featured);
   if(product.description != undefined)
   	productimg.append("description",product.description);
 

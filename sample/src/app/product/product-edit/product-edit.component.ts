@@ -19,12 +19,14 @@ export class ProductEditComponent implements OnInit {
   price;
   description; 
   image;
+  featured;
 
   productForm = new FormGroup({
   	id: new FormControl(''),
   	productName: new FormControl('',[Validators.required]),
   	price: new FormControl('',[Validators.required, Validators.pattern('[0-9]*')]),
   	description: new FormControl(''),
+  	featured: new FormControl(''),
   	image: new FormControl('')
   });
 
@@ -39,6 +41,7 @@ export class ProductEditComponent implements OnInit {
     	this.price 			= data.price;
     	this.description 	= data.description;
     	this.image 			= data.image;
+    	this.featured 		= data.featured;
     	
     });
   }
@@ -58,6 +61,7 @@ export class ProductEditComponent implements OnInit {
   productimg.append("id",product.id);  
   productimg.append("productName",product.productName); 
   productimg.append("price",product.price);
+  productimg.append("featured",product.featured);
   if(product.description != undefined)
   	productimg.append("description",product.description);
 

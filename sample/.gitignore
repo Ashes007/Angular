@@ -9,6 +9,7 @@
 /node_modules
 /db/journal
 /db/diagnostic.data
+/src/assets/uploads
 
 # IDEs and editors
 /.idea

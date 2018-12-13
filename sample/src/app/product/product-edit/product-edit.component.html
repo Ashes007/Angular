@@ -40,13 +40,19 @@
 			<td><input type="text" formControlName="description" [(ngModel)]="description"></td>
 		</tr>
 		<tr>
+			<td>Featured</td>
+			<td>:</td>
+			<td>
+				<input type="radio" formControlName="featured" value="Yes" [(ngModel)]= featured> Yes
+				<input type="radio" formControlName="featured" value="No" [(ngModel)]= featured> No
+			</td>
+		</tr>
+		<tr>
 			<td>Image</td>
 			<td>:</td>
 			<td>
 				<input type="file" (change)="fileChangeEvent($event)"/>
-				<img src ="./assets/uploads/{{ image }}" width="100">
-				<!-- <input type="file" ng2FileSelect [uploader]="uploader" name="photo" /> -->
-
+				<img src ="./assets/uploads/thumb/{{ image }}">
 				
 			</td>
 		</tr>

@@ -53,10 +53,11 @@ var UsersSchema = new Schema({
 },{ versionKey: false });  
   
  var ProductSchema = new Schema({
- 	productName: { type: String},
- 	price: { type: String},
- 	description: { type: String},
- 	image: {type: String}
+ 	productName 	: { type: String},
+ 	price 			: { type: String},
+ 	description 	: { type: String},
+ 	image 			: { type: String},
+ 	featured 		: { type: String}
  }); 
   
 var model = mongo.model('users', UsersSchema);  
@@ -141,9 +142,7 @@ app.post("/api/saveProduct",upload.single('img'),function(req,res){
 				    //var imgName = req.file.image.name
 				    /// If there's an error
 				    if(!imgName){
-				      console.log("There was an error")
-				      res.redirect("/");
-				      res.end();
+				      res.send({data:'No image chosen'});
 				    } else {
 				      	var newPath = __dirname + "/"+DIR+"/" + imgName;
       					var thumbPath = __dirname + "/"+DIR_THUMB+"/" + imgName;
@@ -156,7 +155,7 @@ app.post("/api/saveProduct",upload.single('img'),function(req,res){
 				          width:   200
 				        }, function(err, stdout, stderr){
 				          if (err) throw err;
-				          console.log('resized image to fit within 200x200px');
+				          //console.log('resized image to fit within 200x200px');
 				        });
 				        
 				      });
@@ -166,11 +165,12 @@ app.post("/api/saveProduct",upload.single('img'),function(req,res){
 
 
 		}
-
-	var productData = { productName: req.body.productName, 
-						price: req.body.price, 
-						description: req.body.description,
-						image: imgName 
+		console.log(req.body);
+	var productData = { productName	: req.body.productName, 
+						price 		: req.body.price, 
+						description : req.body.description,
+						image 		: imgName,
+						featured 	: req.body.featured  
 					  };
 	var productModel = new product(productData);
 	productModel.save(function(err,data){
@@ -206,8 +206,13 @@ app.get("/api/deleteProduct/:id", function(req,res){
 			if(data.image != ''){
 				var imageName = data.image;
 				var imagePath = DIR+"/"+imageName;
-
+				var thumbImage  = DIR_THUMB+"/"+imageName;
 				fs.unlink(imagePath, function (err) {
+					if (err) {
+						res.send(err);
+					}					
+				});
+				fs.unlink(thumbImage, function (err) {
 					if (err) {
 						res.send(err);
 					}					
@@ -257,15 +262,50 @@ app.post("/api/updateProduct", upload.single('img'), function(req,res){
 					}
 					else{
 						var imgName = req.file.filename;
-						var imagePath = DIR+"/"+oldImgName;
+						var imagePath 	= DIR+"/"+oldImgName;
+						var thumbImage  = DIR_THUMB+"/"+oldImgName;
 						fs.unlink(imagePath, function (err) {
 									if (err) {
 										res.send(err);
 									}					
 								});
+						fs.unlink(thumbImage, function (err) {
+									if (err) {
+										res.send(err);
+									}					
+								});
+								console.log(req.file.path);
+							  fs.readFile(req.file.path, function (err, data) {
+							    //var imgName = req.file.image.name
+							    /// If there's an error
+							    if(!imgName){
+							      res.send({data:'No image chosen'});
+							    } else {
+							      	var newPath = __dirname + "/"+DIR+"/" + imgName;
+			      					var thumbPath = __dirname + "/"+DIR_THUMB+"/" + imgName;
+							      // write file to uploads/fullsize folder
+							      fs.writeFile(newPath, data, function (err) {
+							        // write file to uploads/thumbs folder
+							        im.resize({
+							          srcPath: newPath,
+							          dstPath: thumbPath,
+							          width:   200
+							        }, function(err, stdout, stderr){
+							          if (err) throw err;
+							          //console.log('resized image to fit within 200x200px');
+							        });
+							        
+							      });
+							    }
+							  });
 					}
 
-					productData = {productName: req.body.productName, price: req.body.price, description: req.body.description, image: imgName };
+					productData = { productName 	: req.body.productName, 
+									price 			: req.body.price, 
+									description 	: req.body.description, 
+									image 			: imgName,
+									featured 		: req.body.featured  
+								};
 					product.update({_id:req.body.id}, productData, function(err,data){
 					   if (err) {  
 					   		res.send(err);         

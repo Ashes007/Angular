@@ -3,6 +3,7 @@ import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import {Constant} from './constant';
 
 import {UserService} from './services/user.service';
 import {ProductService} from './services/product.service';
@@ -38,7 +39,7 @@ import { ProductEditComponent } from './product/product-edit/product-edit.compon
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [UserService,ProductService],
+  providers: [UserService,ProductService, Constant],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
